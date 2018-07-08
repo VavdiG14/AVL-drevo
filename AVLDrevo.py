@@ -87,11 +87,9 @@ class AVLDrevo:
     def najdi(self, podatek):
         return self.je_v_drevesu(podatek, self.koren)
 
-    def je_v_drevesu(self,podatek, vozlisce=None):
+    def je_v_drevesu(self,podatek, vozlisce):
         """Poisce podatek v drevesu oz. vrne False"""
-        if not vozlisce:
-            vozlisce = self.koren
-        if vozlisce.prazno():
+        if vozlisce is None:
             return False
         elif podatek == vozlisce.kljuc:
             return True
@@ -153,6 +151,9 @@ class AVLDrevo:
                 vozlisce.desni.popravi_ravnotezja()
                 vozlisce.desni.popravi()
                 vozlisce = None
+                self.visina = max(self.koren.levi.visina, self.koren.desni.visina) + 1
+                self.ravnotezje = self.koren.levi.visina - self.koren.desni.visina
+                self.popravi()
                 return trenutni
             elif vozlisce.desni.prazno():
                 trenutni = vozlisce.levi.koren
@@ -160,6 +161,9 @@ class AVLDrevo:
                 vozlisce.levi.popravi_ravnotezja()
                 vozlisce.levi.popravi()
                 vozlisce = None
+                self.visina = max(self.koren.levi.visina, self.koren.desni.visina) + 1
+                self.ravnotezje = self.koren.levi.visina - self.koren.desni.visina
+                self.popravi()
                 return trenutni
             trenutni = self.naslednik(vozlisce)
             vozlisce.kljuc = trenutni
@@ -183,15 +187,11 @@ class AVLDrevo:
         else:
             if vozlisce.levi.prazno():
                 trenutni = vozlisce.desni.koren
-                vozlisce.desni.popravi_visine()
-                vozlisce.desni.popravi_ravnotezja()
                 vozlisce.desni.popravi()
                 vozlisce = None
                 return trenutni
             elif vozlisce.desni.prazno():
                 trenutni = vozlisce.levi.koren
-                vozlisce.levi.popravi_visine()
-                vozlisce.levi.popravi_ravnotezja()
                 vozlisce.levi.popravi()
                 vozlisce = None
                 return trenutni
@@ -215,7 +215,7 @@ class AVLDrevo:
         self.visina = max(self.koren.levi.visina, self.koren.desni.visina) + 1
         self.ravnotezje = self.koren.levi.visina - self.koren.desni.visina
         self.popravi()
-        self.brisanje += 1
+        self.brisanje += 0
         return
    
     def leva_rotacija(self):
@@ -272,7 +272,7 @@ class AVLDrevo:
 
 
 import random as ra
-import analizaAVL as analiza
+#import analizaAVL as analiza
 
 a = AVLDrevo()
 for i in [9, 2, 7, 2, 2, 8, 1, 8, 2, 10]:
