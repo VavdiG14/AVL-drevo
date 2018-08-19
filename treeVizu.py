@@ -77,12 +77,12 @@ y0 = (VISINA/100)
 r = 80
 d = avl.AVLDrevo()
 x = 0
-sez = [1,2,3,4,5,6,7,8,9]
+sez = [4, 4, 4, 3,6,9, 1]
 
 def risi_vstavljanje():
     global sez
     global x
-    if  x == 9:
+    if  x == 5:
         #print(sez)
         return risi_brisanje()
     canvas.delete("all")
@@ -100,7 +100,7 @@ def risi_vstavljanje():
     x += 1
     root.after(1500,risi_vstavljanje)
 
-sez1 = [8,3,7,6,2,4,6,1,9]
+sez1 = [4, 4, 4, 3, 6, 9, 1]
 x1 = 0
 
 def risi_brisanje():
@@ -112,8 +112,6 @@ def risi_brisanje():
     canvas.delete("all")
     tk.Label(frame,text= str(len(sez))).grid(row=0,column=1, sticky="nw")
     v = random.choice(sez)
-    print(d)
-    print(d.pravilno())
     izrisi_brisanje(d,sez[x1])
     x1 +=1
     maxGlobina = analiza.max_globina(d)

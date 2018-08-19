@@ -147,23 +147,11 @@ class AVLDrevo:
         else:
             if vozlisce.levi.prazno():
                 trenutni = vozlisce.desni.koren
-                vozlisce.desni.popravi_visine()
-                vozlisce.desni.popravi_ravnotezja()
-                vozlisce.desni.popravi()
                 vozlisce = None
-                self.visina = max(self.koren.levi.visina, self.koren.desni.visina) + 1
-                self.ravnotezje = self.koren.levi.visina - self.koren.desni.visina
-                self.popravi()
                 return trenutni
             elif vozlisce.desni.prazno():
                 trenutni = vozlisce.levi.koren
-                vozlisce.levi.popravi_visine()
-                vozlisce.levi.popravi_ravnotezja()
-                vozlisce.levi.popravi()
                 vozlisce = None
-                self.visina = max(self.koren.levi.visina, self.koren.desni.visina) + 1
-                self.ravnotezje = self.koren.levi.visina - self.koren.desni.visina
-                self.popravi()
                 return trenutni
             trenutni = self.naslednik(vozlisce)
             vozlisce.kljuc = trenutni
@@ -215,7 +203,7 @@ class AVLDrevo:
         self.visina = max(self.koren.levi.visina, self.koren.desni.visina) + 1
         self.ravnotezje = self.koren.levi.visina - self.koren.desni.visina
         self.popravi()
-        self.brisanje += 0
+        self.brisanje += 1
         return
    
     def leva_rotacija(self):
